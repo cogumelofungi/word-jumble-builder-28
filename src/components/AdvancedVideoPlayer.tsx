@@ -14,6 +14,11 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import { 
+  isGoogleDriveUrl, 
+  getGoogleDriveVideoInfo, 
+  convertGoogleDriveUrlToDirect 
+} from '@/utils/googleDriveUtils';
 
 interface AdvancedVideoPlayerProps {
   isOpen: boolean;
@@ -55,6 +60,10 @@ export function AdvancedVideoPlayer({
   const isYouTubeUrl = (url: string) => {
     return url.includes('youtube.com') || url.includes('youtu.be');
   };
+
+  // Check if URL is Google Drive (using utility)
+  const isDriveUrl = isGoogleDriveUrl(videoUrl);
+  const driveInfo = isDriveUrl ? getGoogleDriveVideoInfo(videoUrl) : null;
 
   const youtubeId = isYouTubeUrl(videoUrl) ? getYouTubeId(videoUrl) : null;
 
@@ -175,11 +184,14 @@ export function AdvancedVideoPlayer({
           
           <video
             ref={videoRef}
-            src={videoUrl}
+            src={isDriveUrl && driveInfo ? convertGoogleDriveUrlToDirect(videoUrl) : videoUrl}
             className="absolute inset-0 w-full h-full object-contain z-10"
             autoPlay
             onLoadStart={() => {
               console.log('Video load started for:', videoUrl);
+              if (isDriveUrl) {
+                console.log('Google Drive URL converted to:', convertGoogleDriveUrlToDirect(videoUrl));
+              }
               setIsLoading(true);
             }}
             onCanPlay={() => {
@@ -188,6 +200,9 @@ export function AdvancedVideoPlayer({
             }}
             onError={(e) => {
               console.error('Video error:', e, 'URL:', videoUrl);
+              if (isDriveUrl && driveInfo) {
+                console.log('Google Drive direct failed, this is expected - video will use iframe fallback in VideoPlayer');
+              }
               setIsLoading(false);
             }}
             onTimeUpdate={(e) => {
