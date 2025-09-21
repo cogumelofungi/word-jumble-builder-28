@@ -8,23 +8,23 @@
 
 @layer base {
   :root {
-    --background: 0 0% 8%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
 
     --primary: 0 72% 51%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
     --accent: 330 81% 60%;
     --accent-foreground: 0 0% 98%;
@@ -32,8 +32,8 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 12%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
     --ring: 0 72% 51%;
 
     /* Cinematic color palette */
@@ -124,23 +124,23 @@
   }
 
   .light {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
+    --background: 0 0% 98%;
+    --foreground: 222 15% 25%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 222 15% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 222 15% 25%;
 
     --primary: 0 72% 51%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 15% 25%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 210 40% 95%;
+    --muted-foreground: 215 16% 47%;
 
     --accent: 330 81% 60%;
     --accent-foreground: 0 0% 98%;
@@ -148,8 +148,8 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 96%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
     --ring: 0 72% 51%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -472,6 +472,80 @@
       min-width: 44px !important;
       min-height: 44px !important;
     }
+  }
+
+  /* Light theme specific styles */
+  .light .program-card {
+    @apply bg-white/80 backdrop-blur-sm shadow-sm border border-border/30;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  
+  .light .program-card:hover {
+    @apply shadow-lg;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .light .search-input {
+    @apply bg-white/90 backdrop-blur-sm border-border/40;
+  }
+  
+  .light .search-input:focus-within {
+    @apply border-primary/60 bg-white;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+  }
+
+  .light .main-header {
+    @apply bg-white/95 backdrop-blur-xl border-b border-border/20;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .light .hero-banner {
+    background: linear-gradient(135deg, hsl(210 40% 98%) 0%, hsl(214 32% 96%) 50%, hsl(210 40% 98%) 100%);
+  }
+
+  /* Responsive improvements */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+    
+    .program-card {
+      @apply min-h-[200px];
+    }
+    
+    .hero-banner {
+      @apply min-h-[60vh] px-4;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 768px) {
+    .container {
+      @apply px-6;
+    }
+  }
+
+  /* Additional light theme styles for better contrast */
+  .light .category-nav {
+    @apply bg-white/90 backdrop-blur-lg border-b border-border/30;
+  }
+
+  .light .btn-primary {
+    @apply shadow-md;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.15);
+  }
+
+  .light .btn-primary:hover {
+    box-shadow: 0 8px 25px rgba(229, 9, 20, 0.2);
+  }
+
+  .light .carousel-container .carousel-button {
+    @apply bg-white/90 backdrop-blur-sm border border-border/40;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .light .carousel-container .carousel-button:hover {
+    @apply bg-white border-primary/40;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   /* Text clamp utilities */
