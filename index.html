@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MigraBook</title>
+    <meta name="description" content="Crie e publique seus apps facilmente.">
+    <meta name="author" content="Lovable" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#4783F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MigraBook">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+
+    
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:title" content="MigraBook">
+  <meta name="twitter:title" content="MigraBook">
+  <meta property="og:description" content="Crie e publique seus apps facilmente.">
+  <meta name="twitter:description" content="Crie e publique seus apps facilmente.">
+</head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          if (window.location.pathname.startsWith('/app/')) {
+            navigator.serviceWorker.register('/sw-app.js', { scope: '/app/' })
+              .then((registration) => {
+                console.log('SW (app) registered: ', registration);
+              })
+              .catch((registrationError) => {
+                console.log('SW (app) registration failed: ', registrationError);
+              });
+          } else {
+            navigator.serviceWorker.register('/sw.js')
+              .then((registration) => {
+                console.log('SW registered: ', registration);
+              })
+              .catch((registrationError) => {
+                console.log('SW registration failed: ', registrationError);
+              });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
