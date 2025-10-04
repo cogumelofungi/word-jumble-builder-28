@@ -1,0 +1,94 @@
+-- Primeiro remover a função existente e recriar com o tipo de retorno correto
+DROP FUNCTION IF EXISTS get_public_app(text);
+
+-- Criar função para buscar apps públicos (corrigida)
+CREATE OR REPLACE FUNCTION get_public_app(app_slug TEXT)
+RETURNS TABLE (
+  id UUID,
+  nome TEXT,
+  descricao TEXT,
+  cor TEXT,
+  slug TEXT,
+  allow_pdf_download BOOLEAN,
+  template TEXT,
+  icone_url TEXT,
+  capa_url TEXT,
+  produto_principal_url TEXT,
+  bonus1_url TEXT,
+  bonus2_url TEXT,
+  bonus3_url TEXT,
+  bonus4_url TEXT,
+  bonus5_url TEXT,
+  bonus6_url TEXT,
+  bonus7_url TEXT,
+  main_product_label TEXT,
+  main_product_description TEXT,
+  bonuses_label TEXT,
+  bonus1_label TEXT,
+  bonus2_label TEXT,
+  bonus3_label TEXT,
+  bonus4_label TEXT,
+  bonus5_label TEXT,
+  bonus6_label TEXT,
+  bonus7_label TEXT,
+  bonus1_thumbnail TEXT,
+  bonus2_thumbnail TEXT,
+  bonus3_thumbnail TEXT,
+  bonus4_thumbnail TEXT,
+  mainProductThumbnail TEXT,
+  theme_config JSONB,
+  user_id UUID,
+  created_at TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ,
+  link_personalizado TEXT,
+  views INTEGER,
+  downloads INTEGER
+)
+LANGUAGE SQL
+SECURITY DEFINER
+STABLE
+AS $$
+  SELECT 
+    a.id,
+    a.nome,
+    a.descricao,
+    a.cor,
+    a.slug,
+    a.allow_pdf_download,
+    a.template,
+    a.icone_url,
+    a.capa_url,
+    a.produto_principal_url,
+    a.bonus1_url,
+    a.bonus2_url,
+    a.bonus3_url,
+    a.bonus4_url,
+    a.bonus5_url,
+    a.bonus6_url,
+    a.bonus7_url,
+    a.main_product_label,
+    a.main_product_description,
+    a.bonuses_label,
+    a.bonus1_label,
+    a.bonus2_label,
+    a.bonus3_label,
+    a.bonus4_label,
+    a.bonus5_label,
+    a.bonus6_label,
+    a.bonus7_label,
+    a.bonus1_thumbnail,
+    a.bonus2_thumbnail,
+    a.bonus3_thumbnail,
+    a.bonus4_thumbnail,
+    a.mainProductThumbnail,
+    a.theme_config,
+    a.user_id,
+    a.created_at,
+    a.updated_at,
+    a.link_personalizado,
+    a.views,
+    a.downloads
+  FROM apps a
+  WHERE a.slug = app_slug 
+    AND a.status = 'publicado';
+$$;
