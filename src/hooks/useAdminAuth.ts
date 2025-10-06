@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';  // ← Remover useRef
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 
@@ -17,9 +17,7 @@ export const useAdminAuth = (): AdminAuth => {
   const checkAdminStatus = async () => {
     if (!isAuthenticated || !user) {
       setIsAdmin(false);
-      // Keep loading while auth is initializing to avoid premature redirects
       setIsLoading(authLoading ? true : false);
-      hasChecked.current = authLoading ? false : true;
       return;
     }
 
@@ -46,14 +44,7 @@ export const useAdminAuth = (): AdminAuth => {
   };
 
   useEffect(() => {
-    // Wait for auth to finish loading
     if (authLoading) return;
-    
-    // Reset state if user changed
-    if (user?.id !== lastUserId.current) {
-      lastUserId.current = user.id;
-    }
-    
     checkAdminStatus();
   }, [user?.id, isAuthenticated, authLoading]);
 
